@@ -25,13 +25,15 @@ $(function() {
 
     $('#form_reg').on('submit', function(e) {
         e.preventDefault()
+        var data = {
+            username: $('#form_reg [name=username]').val(),
+            password: $('#form_reg [name=password]').val()
+        }
 
-
-        var data = { username: $('#form_reg[name=username]').val(), password: $('#form_reg [name=password]').val() }
 
         $.post('/api/reguser', data, function(res) {
             console.log(res)
-            if (res.status === 0) {
+            if (res.status !== 0) {
                 return layer.msg(res.message)
             }
             layer.msg('注册成功!')
@@ -40,21 +42,24 @@ $(function() {
         })
     })
 
+      
+
+
     $('#form_login').submit(function(e) {
         e.preventDefault()
         $.ajax({
-            type: 'post',
+            method: 'post',
             url: '/api/login',
             data: $(this).serialize(),
             success: function(res) {
                 console.log(res)
-                if (res.status === 0) {
+                if (res.status !== 0) {
                     return layer.msg('登陆失败')
                 }
                 layer.msg('登陆成功')
                 console.log(res);
-                console.log(res.token)
-                localStorage.setItem('token', res.token)
+                console.log(res.token) 
+                localStorage.setItem('token',  res.token);
                 location.href = '/index.html'
             }
         })
