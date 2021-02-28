@@ -29,6 +29,8 @@ $(function() {
             username: $('#form_reg [name=username]').val(),
             password: $('#form_reg [name=password]').val()
         }
+
+
         $.post('/api/reguser', data, function(res) {
             console.log(res)
             if (res.status !== 0) {
@@ -41,6 +43,8 @@ $(function() {
     })
 
       
+
+
     $('#form_login').submit(function(e) {
         e.preventDefault()
         $.ajax({
@@ -60,4 +64,6 @@ $(function() {
             }
         })
     })
+
+
 })
